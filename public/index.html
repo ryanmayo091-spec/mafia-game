@@ -3,95 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <title>Mafia Game</title>
-  <style>
-    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 40px auto; }
-    h1 { margin-bottom: 8px; }
-    input { padding: 6px; margin-right: 6px; }
-    button { padding: 6px 10px; margin: 4px 4px 12px 0; }
-    pre { background:#f5f5f5; padding:12px; border-radius:8px; min-height:120px; }
-    .row { margin-bottom: 8px; }
-  </style>
+  <!-- Link your CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>Welcome to Mafia Game</h1>
 
+  <!-- Login/Register inputs -->
   <div class="row">
     <input id="user" placeholder="username" />
     <input id="pass" placeholder="password" type="password" />
   </div>
 
+  <!-- Buttons with IDs for script.js -->
   <div class="row">
-    <button onclick="register()">Register</button>
-    <button onclick="login()">Login</button>
-    <button onclick="logout()">Logout</button>
+    <button id="btn-register">Register</button>
+    <button id="btn-login">Login</button>
+    <button id="btn-logout">Logout</button>
   </div>
 
   <div class="row">
-    <button onclick="profile()">Profile</button>
-    <button onclick="crime()">Crime</button>
+    <button id="btn-profile">Profile</button>
+    <button id="btn-crime">Crime</button>
   </div>
 
+  <!-- Status + output -->
   <div>Token: <code id="tokenBox">(none)</code></div>
   <pre id="output">Ready.</pre>
 
-  <script>
-    let token = null;
-
-    function setOutput(obj) {
-      document.getElementById("output").textContent = typeof obj === "string"
-        ? obj
-        : JSON.stringify(obj, null, 2);
-      document.getElementById("tokenBox").textContent = token || "(none)";
-    }
-
-    async function register() {
-      const username = document.getElementById("user").value.trim();
-      const password = document.getElementById("pass").value.trim();
-      const res = await fetch("/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
-      });
-      setOutput(await res.json());
-    }
-
-    async function login() {
-      const username = document.getElementById("user").value.trim();
-      const password = document.getElementById("pass").value.trim();
-      const res = await fetch("/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
-      });
-      const data = await res.json();
-      if (data.ok && data.token) token = data.token;
-      setOutput(data);
-    }
-
-    async function logout() {
-      if (!token) return setOutput("Not logged in.");
-      const res = await fetch("/logout", {
-        method: "POST",
-        headers: { Authorization: "Bearer " + token }
-      });
-      token = null;
-      setOutput(await res.json());
-    }
-
-    async function profile() {
-      const res = await fetch("/profile", {
-        headers: token ? { Authorization: "Bearer " + token } : {}
-      });
-      setOutput(await res.json());
-    }
-
-    async function crime() {
-      const res = await fetch("/crime", {
-        method: "POST",
-        headers: token ? { Authorization: "Bearer " + token } : {}
-      });
-      setOutput(await res.json());
-    }
-  </script>
+  <!-- Load your script -->
+  <script src="script.js"></script>
 </body>
 </html>
