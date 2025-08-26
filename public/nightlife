@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8"><title>Mafia Game – Nightlife</title>
+  <link rel="stylesheet" href="style.css">
+</head><body>
+  <div class="nav"><div class="container">
+    <div class="brand">Mafia Game</div>
+    <a id="nav-home" href="/game">Home</a>
+    <a id="nav-robbery" href="/robbery">Robbery</a>
+    <a id="nav-nightlife" href="/nightlife">Nightlife</a>
+    <a id="nav-benefits" href="/benefits">Benefits</a>
+    <div class="right"><button onclick="doLogout()">Logout</button></div>
+  </div></div>
+
+  <div class="container">
+    <h1>Nightlife</h1>
+    <div class="panel">Clubs, energy, items… (your features here)</div>
+  </div>
+
+  <script src="common.js"></script>
+  <script>requireAuth(); setActive("nav-nightlife");</script>
+</body></html>
