@@ -1,7 +1,6 @@
 {
   "name": "mafia-game",
   "version": "1.0.0",
-  "description": "Simple mafia game hosted on Render",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
