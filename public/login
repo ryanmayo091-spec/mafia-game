@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mafia Game – Sign in</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="nav">
+    <div class="container">
+      <div class="brand">Mafia Game</div>
+      <div class="right">Sign in</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Welcome</h1>
+    <div class="panel">
+      <div class="row"><input id="user" placeholder="username" /> <input id="pass" type="password" placeholder="password" /></div>
+      <div class="row">
+        <button id="btn-register">Register</button>
+        <button id="btn-login">Login</button>
+      </div>
+      <pre id="output">Sign in or register to continue.</pre>
+    </div>
+  </div>
+
+  <script src="common.js"></script>
+  <script>
+    if (getToken()) location.replace("/game"); // already logged in
+
+    const $ = (id) => document.getElementById(id);
+    const out = $("output");
+
+    async function register() {
+      const username = $("user").value.trim();
+      const password = $("pass").value.trim();
+      if (!username || !password) return out.textContent = "Enter username & password.";
+      try { out.textContent = JSON.stringify(await api("/register", { method:"POST", body:{ username, password }}), null, 2); }
+      catch (e) { out.textContent = JSON.stringify(e, null, 2); }
+    }
+
+    async function login() {
+      const username = $("user").value.trim();
+      const password = $("pass").value.trim();
+      if (!username || !password) return out.textContent = "Enter username & password.";
+      try {
+        const data = await api("/login", { method:"POST", body:{ username, password }});
+        if (data.token) { setToken(data.token); location.replace("/game"); }
+        else out.textContent = JSON.stringify(data, null, 2);
+      } catch (e) { out.textContent = JSON.stringify(e, null, 2); }
+    }
+
+    $("btn-register").addEventListener("click", register);
+    $("btn-login").addEventListener("click", login);
+  </script>
+</body>
+</html>
