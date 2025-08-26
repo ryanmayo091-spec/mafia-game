@@ -1,48 +1,23 @@
-body {
-  font-family: "Segoe UI", sans-serif;
-  background: #111;
-  color: #eee;
-  text-align: center;
-  padding: 40px;
-}
+:root { --bg:#0f0f0f; --panel:#1b1b1b; --muted:#aaa; --brand:#f0642f; }
 
-h1 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #f54242;
-}
+body { font-family: system-ui, sans-serif; background: var(--bg); color: #eee; margin:0; }
+h1,h2,h3 { margin:16px 0; }
+.container { max-width: 920px; margin: 0 auto; padding: 24px; }
 
-input {
-  padding: 10px;
-  margin: 6px;
-  border: 1px solid #333;
-  border-radius: 6px;
-  background: #222;
-  color: #eee;
-}
+.nav { background:#121212; border-bottom:1px solid #222; }
+.nav .container { display:flex; align-items:center; gap:16px; }
+.brand { font-weight:800; color:var(--brand); padding:14px 0; }
+.nav a { color:#ddd; text-decoration:none; padding:14px 10px; border-radius:8px; }
+.nav a.active, .nav a:hover { background:#232323; }
+.right { margin-left:auto; color:var(--muted); }
 
-button {
-  padding: 10px 16px;
-  margin: 6px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  background: #f54242;
-  color: white;
-  transition: 0.2s;
-}
-
-button:hover {
-  background: #d73232;
-}
-
-pre {
-  text-align: left;
-  background: #222;
-  padding: 12px;
-  border-radius: 8px;
-  margin-top: 20px;
-  overflow-x: auto;
-  color: #0f0;
-}
+.panel { background: var(--panel); border:1px solid #262626; border-radius:12px; padding:16px; }
+.row { margin:10px 0; }
+input { padding:10px; border-radius:8px; border:1px solid #333; background:#222; color:#eee; }
+button { padding:10px 14px; border:0; border-radius:8px; background:var(--brand); color:#fff; font-weight:700; cursor:pointer; }
+button:hover { filter:brightness(1.05); }
+pre { background:#0c0c0c; border:1px solid #1f1f1f; border-radius:8px; padding:12px; overflow:auto; color:#8fff8f; }
+.grid { display:grid; gap:16px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.card { background: var(--panel); border:1px solid #262626; border-radius:12px; padding:14px; }
+.card h3 { margin:8px 0 6px; }
+.badge { background:#2a2a2a; color:#ddd; padding:2px 8px; border-radius:999px; font-size:12px; }
