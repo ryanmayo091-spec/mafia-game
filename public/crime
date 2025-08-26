@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mafia Game – Robbery</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="nav">
+    <div class="container">
+      <div class="brand">Mafia Game</div>
+      <a id="nav-home" href="/game">Home</a>
+      <a id="nav-robbery" href="/robbery">Robbery</a>
+      <a id="nav-nightlife" href="/nightlife">Nightlife</a>
+      <a id="nav-benefits" href="/benefits">Benefits</a>
+      <div class="right"><button onclick="doLogout()">Logout</button></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Robbery</h1>
+    <div class="panel">
+      <div class="row">
+        <label>
+          Select robbery:
+          <select id="robberyType">
+            <option value="pickpocket">Pickpocket (+$20 / fail -$5)</option>
+            <option value="shoplift">Shoplift (+$40 / fail -$15)</option>
+            <option value="bank">Bank Heist (+$120 / fail -$60)</option>
+          </select>
+        </label>
+        <button id="rob">Do it</button>
+      </div>
+      <pre id="result">Choose a robbery type.</pre>
+    </div>
+  </div>
+
+  <script src="common.js"></script>
+  <script>
+    requireAuth(); setActive("nav-robbery");
+
+    // Very basic: call /crime once; you can add /crime?type=bank later
+    document.getElementById("rob").addEventListener("click", async () => {
+      const type = document.getElementById("robberyType").value;
+      try {
+        const data = await api("/crime", { method:"POST", body: { type } });
+        document.getElementById("result").textContent = JSON.stringify({ type, ...data }, null, 2);
+      } catch (e) {
+        document.getElementById("result").textContent = JSON.stringify(e, null, 2);
+      }
+    });
+  </script>
+</body>
+</html>
